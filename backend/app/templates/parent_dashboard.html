@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Espace Parent | Coach parental IA</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css?v=11"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/static/images/favicon.png"
+    >
+</head>
+
+<body class="application-body parent-chat-body parent-simple-body">
+
+    <div class="parent-chat-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="chat-sidebar">
+
+            <div class="chat-brand">
+                <div class="chat-brand-logo"><img src="/static/images/logo.png" alt="Logo Coach parental IA"></div>
+
+                <div>
+                    <strong>Coach parental IA</strong>
+                    <span>Intelligent</span>
+                </div>
+            </div>
+
+
+            <button
+                type="button"
+                class="sidebar-new-path"
+                onclick="showParentView('home')"
+            >
+                <span>ï¼‹</span>
+                Nouveau parcours
+            </button>
+
+
+            <nav class="chat-sidebar-navigation">
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link active"
+                    data-view="home"
+                    onclick="showParentView('home')"
+                >
+                    <span class="sidebar-icon">✦</span>
+                    Nouveau chat
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link"
+                    data-view="paths"
+                    onclick="showParentView('paths')"
+                >
+                    <span class="sidebar-icon">▣</span>
+                    Mes parcours
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link"
+                    data-view="children"
+                    onclick="showParentView('children')"
+                >
+                    <span class="sidebar-icon">♙</span>
+                    Mes enfants
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link"
+                    data-view="statistics"
+                    onclick="showParentView('statistics')"
+                >
+                    <span class="sidebar-icon">▥</span>
+                    Statistiques
+                </button>
+
+            </nav>
+
+
+            <div class="chat-sidebar-spacer"></div>
+
+
+            <div class="chat-sidebar-user">
+
+                <div
+                    id="parent-avatar"
+                    class="sidebar-user-avatar"
+                >
+                    P
+                </div>
+
+                <div class="sidebar-user-information">
+                    <strong id="parent-name">Parent</strong>
+                    <span id="parent-email"></span>
+                </div>
+
+                <button
+                    type="button"
+                    class="sidebar-logout"
+                    onclick="logout()"
+                    title="Se déconnecter"
+                >
+                    ↗
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENU -->
+        <main class="parent-simple-main">
+
+            <!-- NOUVEAU CHAT -->
+            <section
+                id="home-view"
+                class="parent-view parent-home-chat-view active"
+            >
+
+                <div class="parent-home-chat-content">
+
+                    <div class="parent-home-mini-logo">
+                        CP
+                    </div>
+
+                    <h1>
+                        Bonjour
+                        <span id="welcome-name">Parent</span>
+                    </h1>
+
+                    <p class="parent-home-chat-subtitle">
+                        Comment puis-je vous aider avec votre enfant aujourd’hui ?
+                    </p>
+
+
+                    <div class="quick-child-row">
+
+                        <label for="quick-child-select">
+                            Enfant
+                        </label>
+
+                        <select id="quick-child-select">
+                            <option value="">
+                                Chargement...
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <form
+                        id="quick-path-form"
+                        class="quick-chat-form"
+                    >
+
+                        <textarea
+                            id="quick-trigger-message"
+                            rows="2"
+                            required
+                            minlength="10"
+                            maxlength="5000"
+                            placeholder="Décrivez simplement la situation..."
+                        ></textarea>
+
+                        <button
+                            type="submit"
+                            id="quick-path-submit"
+                            class="quick-chat-send"
+                            title="Commencer le parcours"
+                        >
+                            ➤
+                        </button>
+
+                    </form>
+
+
+                    <p
+                        id="quick-path-message"
+                        class="form-message quick-home-message"
+                    ></p>
+
+
+                    <div class="quick-home-actions">
+
+                        <button
+                            type="button"
+                            class="quick-home-action"
+                            onclick="showParentView('paths')"
+                        >
+                            Mes parcours
+                        </button>
+
+                        <button
+                            type="button"
+                            class="quick-home-action"
+                            onclick="showParentView('children')"
+                        >
+                            Mes enfants
+                        </button>
+
+                        <button
+                            type="button"
+                            class="quick-home-action"
+                            onclick="openAddChildMessage()"
+                        >
+                            + Ajouter un enfant
+                        </button>
+
+                    </div>
+
+
+                    <p class="parent-home-disclaimer">
+                        Le Coach IA accompagne la réflexion parentale
+                        et ne remplace pas un professionnel de santé.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- MES PARCOURS -->
+            <section
+                id="paths-view"
+                class="parent-view parent-panel-view"
+            >
+
+                <div class="parent-panel-inner">
+
+                    <header class="parent-panel-header">
+
+                        <div>
+                            <h1>Mes parcours</h1>
+                            <p>
+                                Retrouvez vos conversations de coaching.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="parent-panel-action"
+                            onclick="showParentView('home')"
+                        >
+                            + Nouveau parcours
+                        </button>
+
+                    </header>
+
+
+                    <div
+                        id="paths-list"
+                        class="paths-list simple-paths-list"
+                    >
+                        <div class="loading-state">
+                            Chargement des parcours...
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- MES ENFANTS -->
+            <section
+                id="children-view"
+                class="parent-view parent-panel-view"
+            >
+
+                <div class="parent-panel-inner">
+
+                    <header class="parent-panel-header">
+
+                        <div>
+                            <h1>Mes enfants</h1>
+
+                            <p>
+                                <span id="children-count">0 enfant</span>
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="parent-panel-action"
+                            onclick="openAddChildMessage()"
+                        >
+                            + Ajouter un enfant
+                        </button>
+
+                    </header>
+
+
+                    <div
+                        id="children-list"
+                        class="children-list simple-children-list"
+                    >
+                        <div class="loading-state">
+                            Chargement des enfants...
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTIQUES -->
+            <section
+                id="statistics-view"
+                class="parent-view parent-panel-view"
+            >
+
+                <div class="parent-panel-inner">
+
+                    <header class="parent-panel-header">
+                        <div>
+                            <h1>Statistiques</h1>
+                            <p>
+                                Une vue simple de votre activité.
+                            </p>
+                        </div>
+                    </header>
+
+
+                    <div class="simple-stat-list">
+
+                        <div class="simple-stat-line">
+                            <span>Parcours créés</span>
+                            <strong id="stat-total-paths">0</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>Parcours en cours</span>
+                            <strong id="stat-active-paths">0</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>Parcours terminés</span>
+                            <strong id="stat-completed-paths">0</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>Satisfaction</span>
+                            <strong id="stat-satisfaction">0%</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>En attente du coach</span>
+                            <strong id="stat-waiting-review">0</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>Feedbacks positifs</span>
+                            <strong id="stat-positive-ratings">0</strong>
+                        </div>
+
+                        <div class="simple-stat-line">
+                            <span>Feedbacks négatifs</span>
+                            <strong id="stat-negative-ratings">0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- MODAL ENFANT -->
+    <div
+        id="child-modal"
+        class="modal-overlay hidden"
+    >
+        <section class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-label">
+                        Nouveau profil
+                    </p>
+
+                    <h2>Ajouter un enfant</h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="modal-close-button"
+                    onclick="closeChildModal()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="child-form">
+
+                <div class="form-group">
+                    <label for="child-first-name">
+                        Prénom
+                    </label>
+
+                    <input
+                        type="text"
+                        id="child-first-name"
+                        required
+                        maxlength="100"
+                        placeholder="Exemple : Adam"
+                    >
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="child-age">Âge</label>
+
+                        <input
+                            type="number"
+                            id="child-age"
+                            required
+                            min="1"
+                            max="18"
+                            placeholder="9"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="child-gender">
+                            Sexe
+                        </label>
+
+                        <select
+                            id="child-gender"
+                            required
+                        >
+                            <option value="garçon">Garçon</option>
+                            <option value="fille">Fille</option>
+                            <option value="autre">Autre</option>
+                            <option value="non_précisé">Non précisé</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label for="child-family-context">
+                        Contexte familial
+                    </label>
+
+                    <textarea
+                        id="child-family-context"
+                        rows="3"
+                        maxlength="2000"
+                        placeholder="Exemple : vit avec ses deux parents..."
+                    ></textarea>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="child-additional-information">
+                        Informations complémentaires
+                    </label>
+
+                    <textarea
+                        id="child-additional-information"
+                        rows="4"
+                        maxlength="3000"
+                        placeholder="Habitudes ou informations utiles..."
+                    ></textarea>
+                </div>
+
+
+                <p
+                    id="child-form-message"
+                    class="form-message"
+                ></p>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="closeChildModal()"
+                    >
+                        Annuler
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="child-submit-button"
+                        class="primary-action-button"
+                    >
+                        Ajouter l’enfant
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+    </div>
+
+
+    <!-- MODAL PARCOURS (utilisé depuis la liste des enfants) -->
+    <div
+        id="path-modal"
+        class="modal-overlay hidden"
+    >
+        <section class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-label">
+                        Nouveau parcours
+                    </p>
+
+                    <h2>Décrire la situation</h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="modal-close-button"
+                    onclick="closePathModal()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="path-form">
+
+                <input
+                    type="hidden"
+                    id="path-child-id"
+                >
+
+
+                <div class="selected-child-box">
+                    <span>Enfant concerné</span>
+                    <strong id="selected-child-name">Enfant</strong>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="path-trigger-message">
+                        Que se passe-t-il ?
+                    </label>
+
+                    <textarea
+                        id="path-trigger-message"
+                        rows="7"
+                        required
+                        minlength="10"
+                        maxlength="5000"
+                        placeholder="Décrivez la situation avec votre enfant..."
+                    ></textarea>
+                </div>
+
+
+                <p
+                    id="path-form-message"
+                    class="form-message"
+                ></p>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="closePathModal()"
+                    >
+                        Annuler
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="path-submit-button"
+                        class="primary-action-button"
+                    >
+                        Créer le parcours
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+    </div>
+
+
+<script src="/static/js/parent_dashboard.js?v=3"></script>
+
+</body>
+</html>
+

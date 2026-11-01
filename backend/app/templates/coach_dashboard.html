@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }} | Coach parental IA</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css?v=11"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/static/images/favicon.png"
+    >
+</head>
+
+<body class="application-body coach-simple-body">
+
+    <div class="coach-simple-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="chat-sidebar coach-simple-sidebar">
+
+            <div class="chat-brand">
+
+                <div class="chat-brand-logo"><img src="/static/images/logo.png" alt="Logo Coach parental IA"></div>
+
+                <div>
+                    <strong>
+                        Coach parental IA
+                    </strong>
+
+                    <span>
+                        Espace coach
+                    </span>
+                </div>
+
+            </div>
+
+
+            <nav class="chat-sidebar-navigation coach-simple-nav">
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link active"
+                    data-coach-view="pending"
+                    onclick="showCoachView('pending')"
+                >
+                    <span class="sidebar-icon">
+                        ▣
+                    </span>
+
+                    Parcours à évaluer
+                </button>
+
+
+                <button
+                    type="button"
+                    class="chat-sidebar-link"
+                    data-coach-view="statistics"
+                    onclick="showCoachView('statistics')"
+                >
+                    <span class="sidebar-icon">
+                        ▥
+                    </span>
+
+                    Statistiques
+                </button>
+
+            </nav>
+
+
+            <div class="chat-sidebar-spacer"></div>
+
+
+            <div class="chat-sidebar-user">
+
+                <div
+                    id="coach-avatar"
+                    class="sidebar-user-avatar"
+                >
+                    C
+                </div>
+
+
+                <div class="sidebar-user-information">
+
+                    <strong id="coach-name">
+                        Coach
+                    </strong>
+
+                    <span id="coach-email"></span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="sidebar-logout"
+                    onclick="logout()"
+                    title="Se déconnecter"
+                >
+                    ↗
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENU -->
+        <main class="coach-simple-main">
+
+
+            <!-- ================================= -->
+            <!-- PARCOURS À ÉVALUER -->
+            <!-- ================================= -->
+
+            <section
+                id="pending-view"
+                class="coach-view active"
+            >
+
+                <div class="coach-view-inner">
+
+                    <header class="coach-simple-header">
+
+                        <div>
+
+                            <p class="coach-simple-eyebrow">
+                                Espace coach
+                            </p>
+
+                            <h1>
+                                Bonjour
+                                <span id="welcome-coach-name">
+                                    Coach
+                                </span>
+                            </h1>
+
+                            <p>
+                                Voici les parcours qui attendent votre évaluation.
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            id="pending-count"
+                            class="section-counter"
+                        >
+                            0 parcours
+                        </span>
+
+                    </header>
+
+
+                    <div
+                        id="coach-paths-list"
+                        class="coach-simple-paths"
+                    >
+
+                        <div class="loading-state">
+                            Chargement des parcours...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================= -->
+            <!-- STATISTIQUES -->
+            <!-- ================================= -->
+
+            <section
+                id="statistics-view"
+                class="coach-view"
+            >
+
+                <div class="coach-view-inner">
+
+
+                    <!-- EN-TÊTE -->
+
+                    <header class="coach-simple-header">
+
+                        <div>
+
+                            <p class="coach-simple-eyebrow">
+                                Vue d’ensemble
+                            </p>
+
+                            <h1>
+                                Statistiques
+                            </h1>
+
+                            <p>
+                                Résumé de votre activité d’évaluation.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+                    <!-- ================================= -->
+                    <!-- STATISTIQUES GÉNÉRALES -->
+                    <!-- ================================= -->
+
+                    <div class="coach-simple-stats">
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Parcours en attente
+                            </span>
+
+                            <strong id="coach-pending-paths">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Parcours évalués
+                            </span>
+
+                            <strong id="coach-evaluated-paths">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Évaluations validées
+                            </span>
+
+                            <strong id="coach-validated-paths">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Note globale moyenne
+                            </span>
+
+                            <strong>
+
+                                <span id="coach-average-score">
+                                    0.0
+                                </span>
+
+                                / 5
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- ÉVALUATION DU RAG -->
+                    <!-- ================================= -->
+
+                    <h2
+                        style="
+                            margin-top: 36px;
+                            margin-bottom: 14px;
+                        "
+                    >
+                        Évaluation du RAG
+                    </h2>
+
+
+                    <div class="coach-simple-stats">
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Precision@4
+                            </span>
+
+                            <strong id="coach-rag-precision">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Recall@4 (pool annoté)
+                            </span>
+
+                            <strong id="coach-rag-recall">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MRR
+                            </span>
+
+                            <strong id="coach-rag-mrr">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Faithfulness
+                            </span>
+
+                            <strong id="coach-rag-faithfulness">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Answer Relevancy
+                            </span>
+
+                            <strong id="coach-rag-answer-relevancy">
+                                0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- ÉVALUATION DU MODÈLE KNN -->
+                    <!-- ================================= -->
+
+                    <h2
+                        style="
+                            margin-top: 36px;
+                            margin-bottom: 14px;
+                        "
+                    >
+                        Évaluation du modèle KNN
+                    </h2>
+
+
+                    <div class="coach-simple-stats">
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Méthode d’évaluation
+                            </span>
+
+                            <strong>
+                                Leave-One-Out
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                Parcours évalués
+                            </span>
+
+                            <strong id="coach-knn-samples">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MAE globale
+                            </span>
+
+                            <strong id="coach-knn-mae-global">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                RMSE globale
+                            </span>
+
+                            <strong id="coach-knn-rmse-global">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MAE Pertinence
+                            </span>
+
+                            <strong id="coach-knn-mae-relevance">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MAE Sécurité
+                            </span>
+
+                            <strong id="coach-knn-mae-safety">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MAE Personnalisation
+                            </span>
+
+                            <strong id="coach-knn-mae-personalization">
+                                0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="simple-stat-line">
+
+                            <span>
+                                MAE Fidélité PET
+                            </span>
+
+                            <strong id="coach-knn-mae-fidelity">
+                                0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AVERTISSEMENT KNN -->
+
+                    <p
+                        style="
+                            margin-top: 12px;
+                            margin-bottom: 40px;
+                            font-size: 12px;
+                            line-height: 1.6;
+                            color: #899792;
+                        "
+                    >
+                        Résultats préliminaires —
+                        <span id="coach-knn-warning-samples">
+                            0
+                        </span>
+                        parcours évalués.
+                        Les performances doivent être interprétées
+                        avec prudence en raison du faible nombre
+                        de données disponibles.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="/static/js/coach_dashboard.js?v=4"></script>
+
+</body>
+
+</html>
+

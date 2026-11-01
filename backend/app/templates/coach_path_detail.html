@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }} | Coach parental IA</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css?v=11"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/static/images/favicon.png"
+    >
+</head>
+
+<body class="application-body coach-detail-body">
+
+    <div class="coach-detail-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="chat-sidebar coach-detail-sidebar">
+
+            <div class="chat-brand">
+                <div class="chat-brand-logo"><img src="/static/images/logo.png" alt="Logo Coach parental IA"></div>
+
+                <div>
+                    <strong>Coach parental IA</strong>
+                    <span>Espace coach</span>
+                </div>
+            </div>
+
+
+            <nav class="chat-sidebar-navigation coach-detail-navigation">
+
+                <a
+                    href="/web/coach"
+                    class="chat-sidebar-link active"
+                >
+                    <span class="sidebar-icon">▣</span>
+                    Parcours à évaluer
+                </a>
+
+                <a
+                    href="/web/coach#statistics"
+                    class="chat-sidebar-link"
+                >
+                    <span class="sidebar-icon">▥</span>
+                    Statistiques
+                </a>
+
+            </nav>
+
+
+            <div class="chat-sidebar-spacer"></div>
+
+
+            <div class="chat-sidebar-user">
+
+                <div
+                    id="coach-avatar"
+                    class="sidebar-user-avatar"
+                >
+                    C
+                </div>
+
+                <div class="sidebar-user-information">
+                    <strong id="coach-name">Coach</strong>
+                    <span id="coach-email"></span>
+                </div>
+
+                <button
+                    type="button"
+                    class="sidebar-logout"
+                    onclick="logout()"
+                    title="Se déconnecter"
+                >
+                    ↗
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENU -->
+        <main class="coach-detail-main">
+
+            <div class="coach-detail-content">
+
+                <!-- EN-TÊTE -->
+                <header class="coach-detail-header">
+
+                    <button
+                        type="button"
+                        class="coach-back-link"
+                        onclick="goBackToCoachDashboard()"
+                    >
+                        ← Retour aux parcours
+                    </button>
+
+                    <div class="coach-detail-title-row">
+
+                        <div>
+                            <p class="coach-simple-eyebrow">
+                                Évaluation humaine
+                            </p>
+
+                            <h1 id="coach-path-title">
+                                Chargement du parcours...
+                            </h1>
+
+                            <div class="coach-path-meta">
+                                <span id="coach-path-parent">
+                                    Enfant
+                                </span>
+
+                                <span
+                                    id="coach-path-status"
+                                    class="status-badge"
+                                >
+                                    Chargement
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- CONTEXTE -->
+                <section class="coach-context-section">
+
+                    <div class="coach-context-item">
+                        <span>Situation initiale</span>
+
+                        <p id="coach-trigger-message">
+                            Chargement...
+                        </p>
+                    </div>
+
+                    <div class="coach-context-item">
+                        <span>Conclusion du parent</span>
+
+                        <p id="coach-parent-conclusion">
+                            Chargement...
+                        </p>
+                    </div>
+
+                </section>
+
+
+                <!-- CONVERSATION -->
+                <section class="coach-conversation-section">
+
+                    <div class="coach-section-heading">
+                        <div>
+                            <p class="coach-simple-eyebrow">
+                                Historique
+                            </p>
+
+                            <h2>Conversation parent / IA</h2>
+                        </div>
+                    </div>
+
+                    <div
+                        id="coach-messages-container"
+                        class="coach-review-messages"
+                    >
+                        <div class="loading-state">
+                            Chargement des messages...
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- ÉVALUATION -->
+                <section class="coach-evaluation-section">
+
+                    <div class="coach-section-heading">
+                        <div>
+                            <p class="coach-simple-eyebrow">
+                                Évaluation
+                            </p>
+
+                            <h2>Évaluer ce parcours</h2>
+
+                            <p>
+                                Notez la qualité de l’accompagnement proposé par le Coach IA.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+    id="ml-prediction-box"
+    class="coach-simple-stats"
+    style="margin-bottom: 32px;"
+>
+    <div style="margin-bottom: 14px;">
+        <p class="coach-simple-eyebrow">
+            Machine Learning
+        </p>
+
+        <h3 style="margin: 4px 0 6px;">
+            Estimation ML
+        </h3>
+
+        <p style="margin: 0;">
+            Estimation indicative basée sur des parcours
+            précédemment évalués par un coach humain.
+        </p>
+    </div>
+
+    <div id="ml-prediction-content">
+        <div class="loading-state">
+            Calcul de l’estimation...
+        </div>
+    </div>
+</div>
+
+                    <form id="coach-evaluation-form">
+
+                        <div class="coach-evaluation-grid">
+
+                            <div class="form-group">
+                                <label for="relevance-score">
+                                    Pertinence
+                                </label>
+
+                                <select id="relevance-score" required>
+                                    <option value="">Choisir une note</option>
+                                    <option value="1">1 / 5</option>
+                                    <option value="2">2 / 5</option>
+                                    <option value="3">3 / 5</option>
+                                    <option value="4">4 / 5</option>
+                                    <option value="5">5 / 5</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="safety-score">
+                                    Sécurité
+                                </label>
+
+                                <select id="safety-score" required>
+                                    <option value="">Choisir une note</option>
+                                    <option value="1">1 / 5</option>
+                                    <option value="2">2 / 5</option>
+                                    <option value="3">3 / 5</option>
+                                    <option value="4">4 / 5</option>
+                                    <option value="5">5 / 5</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="personalization-score">
+                                    Personnalisation
+                                </label>
+
+                                <select id="personalization-score" required>
+                                    <option value="">Choisir une note</option>
+                                    <option value="1">1 / 5</option>
+                                    <option value="2">2 / 5</option>
+                                    <option value="3">3 / 5</option>
+                                    <option value="4">4 / 5</option>
+                                    <option value="5">5 / 5</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="document-fidelity-score">
+                                    Fidélité aux documents PET
+                                </label>
+
+                                <select id="document-fidelity-score" required>
+                                    <option value="">Choisir une note</option>
+                                    <option value="1">1 / 5</option>
+                                    <option value="2">2 / 5</option>
+                                    <option value="3">3 / 5</option>
+                                    <option value="4">4 / 5</option>
+                                    <option value="5">5 / 5</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>
+                                    Note globale
+                                </label>
+
+                                <div
+                                    id="global-score-display"
+                                    class="automatic-global-score"
+                                >
+                                    <strong id="global-score-value">—</strong>
+                                    <span>/ 5</span>
+                                </div>
+
+                                <small class="automatic-score-help">
+                                    Calculée automatiquement à partir des 4 critères.
+                                </small>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="validated">
+                                    Décision
+                                </label>
+
+                                <select id="validated" required>
+                                    <option value="">
+                                        Sélectionner
+                                    </option>
+
+                                    <option value="true">
+                                        Valider le parcours
+                                    </option>
+
+                                    <option value="false">
+                                        Ne pas valider
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group coach-comment-group">
+
+                            <label for="coach-comment">
+                                Commentaire
+                            </label>
+
+                            <textarea
+                                id="coach-comment"
+                                rows="5"
+                                maxlength="5000"
+                                placeholder="Ajoutez un commentaire sur cette évaluation..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="coach-evaluation-footer">
+
+                            <p
+                                id="coach-evaluation-message"
+                                class="form-message"
+                            ></p>
+
+                            <button
+                                type="submit"
+                                id="coach-evaluation-submit"
+                                class="primary-action-button"
+                            >
+                                Enregistrer l’évaluation
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script>
+        window.PATH_ID = Number("{{ path_id }}");
+    </script>
+
+<script src="/static/js/coach_path_detail.js?v=4"></script>
+
+</body>
+
+</html>
+

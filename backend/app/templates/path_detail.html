@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }} | Coach parental IA</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css?v=11"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/static/images/favicon.png"
+    >
+</head>
+
+<body class="application-body parent-chat-body">
+
+    <div class="parent-chat-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="chat-sidebar">
+
+            <div class="chat-brand">
+                <div class="chat-brand-logo"><img src="/static/images/logo.png" alt="Logo Coach parental IA"></div>
+
+                <div>
+                    <strong>Coach parental IA</strong>
+                    <span>Intelligent</span>
+                </div>
+            </div>
+
+
+            <button
+                type="button"
+                class="sidebar-new-path"
+                onclick="goBackToDashboard()"
+            >
+                <span>+</span>
+                Nouveau parcours
+            </button>
+
+
+            <nav class="chat-sidebar-navigation">
+
+                <a
+                    href="/web/parent#paths-section"
+                    class="chat-sidebar-link active"
+                >
+                    <span class="sidebar-icon">▣</span>
+                    Mes parcours
+                </a>
+
+                <a
+                    href="/web/parent#children-section"
+                    class="chat-sidebar-link"
+                >
+                    <span class="sidebar-icon">♙</span>
+                    Mes enfants
+                </a>
+
+                <a
+                    href="/web/parent#statistics-section"
+                    class="chat-sidebar-link"
+                >
+                    <span class="sidebar-icon">▥</span>
+                    Statistiques
+                </a>
+
+            </nav>
+
+
+            <div class="chat-sidebar-spacer"></div>
+
+
+            <div class="sidebar-help-card">
+                <strong>Besoin d’aide ?</strong>
+
+                <span>
+                    Consultez vos parcours et les conseils
+                    proposés par le Coach IA.
+                </span>
+            </div>
+
+
+            <div class="chat-sidebar-user">
+
+                <div
+                    id="sidebar-user-avatar"
+                    class="sidebar-user-avatar"
+                >
+                    P
+                </div>
+
+                <div class="sidebar-user-information">
+                    <strong id="sidebar-user-name">
+                        Parent
+                    </strong>
+
+                    <span>
+                        Parent
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    class="sidebar-logout"
+                    onclick="logout()"
+                    title="Se déconnecter"
+                >
+                    ↗
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ZONE PRINCIPALE -->
+        <main class="parent-chat-main">
+
+            <!-- EN-TÊTE -->
+            <header class="parent-chat-header">
+
+                <div>
+
+                    <h1 id="chat-greeting">
+                        Bonjour
+                    </h1>
+
+                    <p>
+                        Décrivez la situation avec votre enfant
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="conclusion-button"
+                    class="finish-path-button"
+                    onclick="openConclusionModal()"
+                >
+                    Terminer le parcours
+                </button>
+
+            </header>
+
+
+            <!-- INFORMATIONS COMPACTES -->
+            <section class="chat-path-information">
+
+                <div class="chat-path-meta">
+
+                    <span id="path-title">
+                        Chargement du parcours...
+                    </span>
+
+                    <span class="meta-separator">
+                        ·
+                    </span>
+
+                    <span id="path-child">
+                        Enfant
+                    </span>
+
+                    <span
+                        id="path-status"
+                        class="status-badge"
+                    >
+                        Chargement
+                    </span>
+
+                </div>
+
+
+                <details class="path-details">
+
+                    <summary>
+                        Détails du parcours
+                    </summary>
+
+
+                    <div class="path-details-content">
+
+                        <div class="path-detail-block">
+
+                            <span class="details-label">
+                                Situation initiale
+                            </span>
+
+                            <p
+                                id="trigger-message"
+                                class="trigger-message-text"
+                            >
+                                Chargement...
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="parent-conclusion-card"
+                            class="path-detail-block hidden"
+                        >
+
+                            <span class="details-label">
+                                Votre conclusion
+                            </span>
+
+                            <p
+                                id="parent-conclusion-display"
+                                class="trigger-message-text"
+                            >
+                                Aucune conclusion.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="coach-evaluation-card"
+                            class="path-detail-block hidden"
+                        >
+
+                            <span class="details-label">
+                                Évaluation du coach
+                            </span>
+
+
+                            <div class="evaluation-summary">
+
+                                <div class="evaluation-row">
+                                    <span>Pertinence</span>
+                                    <strong id="evaluation-relevance">-</strong>
+                                </div>
+
+                                <div class="evaluation-row">
+                                    <span>Sécurité</span>
+                                    <strong id="evaluation-safety">-</strong>
+                                </div>
+
+                                <div class="evaluation-row">
+                                    <span>Personnalisation</span>
+                                    <strong id="evaluation-personalization">-</strong>
+                                </div>
+
+                                <div class="evaluation-row">
+                                    <span>Fidélité PET</span>
+                                    <strong id="evaluation-fidelity">-</strong>
+                                </div>
+
+                                <div class="evaluation-row">
+                                    <span>Note globale</span>
+                                    <strong id="evaluation-global">-</strong>
+                                </div>
+
+                            </div>
+
+
+                            <div class="coach-decision-box">
+
+                                <span>Décision</span>
+
+                                <strong id="evaluation-decision">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                id="coach-comment-box"
+                                class="coach-comment-box hidden"
+                            >
+
+                                <span>
+                                    Commentaire du coach
+                                </span>
+
+                                <p id="evaluation-comment"></p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </details>
+
+            </section>
+
+
+            <!-- CONVERSATION -->
+            <section
+                id="messages-container"
+                class="messages-container modern-chat-messages"
+            >
+
+                <div class="loading-state">
+                    Chargement des messages...
+                </div>
+
+            </section>
+
+
+            <!-- COMPOSER -->
+            <footer class="modern-chat-footer">
+
+                <div class="chat-quick-actions">
+
+                    <button
+                        type="button"
+                        id="generate-button"
+                        class="generate-ai-button"
+                        onclick="generateAiResponse()"
+                    >
+                        ✦ Demander au Coach IA
+                    </button>
+
+                </div>
+
+
+                <form
+                    id="message-form"
+                    class="modern-message-form"
+                >
+
+                    <textarea
+                        id="parent-message"
+                        rows="1"
+                        required
+                        minlength="2"
+                        maxlength="5000"
+                        placeholder="Écrivez votre message..."
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        id="message-submit-button"
+                        class="modern-send-button"
+                        title="Envoyer"
+                    >
+                        ➤
+                    </button>
+
+                </form>
+
+
+                <p
+                    id="message-form-message"
+                    class="form-message modern-form-message"
+                ></p>
+
+
+                <p class="chat-disclaimer">
+                    Les réponses du Coach IA ne remplacent pas
+                    l’avis d’un professionnel de santé.
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- MODAL DE CONCLUSION -->
+    <div
+        id="conclusion-modal"
+        class="modal-overlay hidden"
+    >
+
+        <section class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="section-label">
+                        Fin du parcours
+                    </p>
+
+                    <h2>
+                        Ajouter votre conclusion
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="modal-close-button"
+                    onclick="closeConclusionModal()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="conclusion-form">
+
+                <div class="form-group">
+
+                    <label for="parent-conclusion">
+                        Comment la situation a-t-elle évolué ?
+                    </label>
+
+                    <textarea
+                        id="parent-conclusion"
+                        rows="6"
+                        required
+                        minlength="10"
+                        maxlength="5000"
+                        placeholder="Décrivez brièvement ce que vous avez essayé et comment la situation a évolué."
+                    ></textarea>
+
+                </div>
+
+
+                <p class="form-help-text">
+                    Cette conclusion sera transmise au coach humain
+                    avec l’historique du parcours.
+                </p>
+
+
+                <p
+                    id="conclusion-form-message"
+                    class="form-message"
+                ></p>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="closeConclusionModal()"
+                    >
+                        Annuler
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="conclusion-submit-button"
+                        class="primary-action-button"
+                    >
+                        Terminer le parcours
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+
+    <script>
+        window.PATH_ID = Number("{{ path_id }}");
+    </script>
+
+    <script src="/static/js/path_detail.js"></script>
+
+</body>
+</html>
+
+

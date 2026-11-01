@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }} | Coach parental IA</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css?v=11"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/static/images/favicon.png"
+    >
+
+    <style>
+        html {
+            min-height: 100%;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        body.login-body.modern-login-body {
+            display: block !important;
+
+            width: 100%;
+            min-height: 100vh !important;
+            height: auto !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        .modern-login-page {
+            display: flex !important;
+            flex-direction: column !important;
+
+            align-items: center !important;
+            justify-content: flex-start !important;
+
+            width: 100%;
+            min-height: 100vh !important;
+            height: auto !important;
+
+            padding: 40px 20px 100px !important;
+
+            box-sizing: border-box;
+
+            overflow: visible !important;
+        }
+
+        .modern-login-brand,
+        .modern-login-card,
+        .modern-login-disclaimer {
+            flex-shrink: 0 !important;
+        }
+
+        .modern-login-card {
+            width: min(430px, 100%) !important;
+            box-sizing: border-box;
+        }
+
+        #login-view[hidden],
+        #register-view[hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+
+<body class="login-body modern-login-body">
+
+    <main class="modern-login-page">
+
+        <!-- MARQUE -->
+
+        <div class="modern-login-brand">
+
+            <div class="modern-login-logo"><img src="/static/images/logo.png" alt="Logo Coach parental IA"></div>
+
+            <div>
+
+                <strong>
+                    Coach parental IA
+                </strong>
+
+                <span>
+                    Accompagnement parental intelligent
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <section class="modern-login-card">
+
+
+            <!-- ================================= -->
+            <!-- CONNEXION -->
+            <!-- ================================= -->
+
+            <div id="login-view">
+
+                <div class="modern-login-header">
+
+                    <span class="modern-login-badge">
+                        Bienvenue
+                    </span>
+
+                    <h1>
+                        Se connecter
+                    </h1>
+
+                    <p>
+                        Accédez à votre espace parent ou coach.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="login-form"
+                    class="modern-login-form"
+                >
+
+                    <div class="modern-login-field">
+
+                        <label for="email">
+                            Adresse e-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="nom@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modern-login-field">
+
+                        <label for="password">
+                            Mot de passe
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Votre mot de passe"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="login-button"
+                        class="modern-login-button"
+                    >
+                        Se connecter
+                    </button>
+
+
+                    <p
+                        id="login-message"
+                        class="form-message modern-login-message"
+                    ></p>
+
+                </form>
+
+
+                <div class="modern-login-separator">
+
+                    <span></span>
+
+                    <p>
+                        Nouveau parent ?
+                    </p>
+
+                    <span></span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="show-register-button"
+                    class="modern-login-button"
+                    style="
+                        background: white;
+                        color: #2f7d5a;
+                        border: 1px solid #2f7d5a;
+                    "
+                >
+                    Créer un compte
+                </button>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- INSCRIPTION -->
+            <!-- ================================= -->
+
+            <div
+                id="register-view"
+                hidden
+            >
+
+                <div class="modern-login-header">
+
+                    <span class="modern-login-badge">
+                        Inscription
+                    </span>
+
+                    <h1>
+                        Créer un compte
+                    </h1>
+
+                    <p>
+                        Créez votre espace parent.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="register-form"
+                    class="modern-login-form"
+                >
+
+                    <div class="modern-login-field">
+
+                        <label for="register-first-name">
+                            Prénom
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-first-name"
+                            minlength="2"
+                            maxlength="100"
+                            autocomplete="given-name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modern-login-field">
+
+                        <label for="register-last-name">
+                            Nom
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-last-name"
+                            minlength="2"
+                            maxlength="100"
+                            autocomplete="family-name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modern-login-field">
+
+                        <label for="register-email">
+                            Adresse e-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="register-email"
+                            placeholder="nom@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modern-login-field">
+
+                        <label for="register-password">
+                            Mot de passe
+                        </label>
+
+                        <input
+                            type="password"
+                            id="register-password"
+                            minlength="8"
+                            maxlength="100"
+                            placeholder="8 caractères minimum"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modern-login-field">
+
+                        <label for="register-password-confirm">
+                            Confirmer le mot de passe
+                        </label>
+
+                        <input
+                            type="password"
+                            id="register-password-confirm"
+                            minlength="8"
+                            maxlength="100"
+                            placeholder="Confirmez votre mot de passe"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="register-button"
+                        class="modern-login-button"
+                    >
+                        Créer mon compte
+                    </button>
+
+
+                    <p
+                        id="register-message"
+                        class="form-message modern-login-message"
+                    ></p>
+
+                </form>
+
+
+                <div class="modern-login-separator">
+
+                    <span></span>
+
+                    <p>
+                        Déjà un compte ?
+                    </p>
+
+                    <span></span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="show-login-button"
+                    class="modern-login-button"
+                    style="
+                        background: white;
+                        color: #2f7d5a;
+                        border: 1px solid #2f7d5a;
+                    "
+                >
+                    Se connecter
+                </button>
+
+            </div>
+
+
+            <!-- BAS DE LA CARTE -->
+
+            <div class="modern-login-separator">
+
+                <span></span>
+
+                <p>
+                    Coach parental IA
+                </p>
+
+                <span></span>
+
+            </div>
+
+
+            <p class="modern-login-footer-text">
+                Un accompagnement basé sur la méthode P.E.T.
+                avec validation humaine.
+            </p>
+
+        </section>
+
+
+        <p class="modern-login-disclaimer">
+            Les réponses proposées par le Coach IA
+            ne remplacent pas l’avis d’un professionnel de santé.
+        </p>
+
+    </main>
+
+
+    <script src="/static/js/login.js?v=4"></script>
+
+</body>
+
+</html>
+

@@ -50,3 +50,33 @@ AI & Data Science Engineering Student
 ## Project Status
 
 Academic AI project - Research and Development
+
+---
+
+## Application Screenshots
+
+### 1. Login Page
+Authentication interface for parents and coaches.
+
+![Login Page](docs/screenshots/login-page.png)
+
+### 2. Parent Dashboard
+Personalized AI coaching interface for parents.
+
+![Parent Dashboard](docs/screenshots/parent-dashboard.png)
+
+### 3. Coach Dashboard
+Human coach interface for evaluating coaching paths.
+
+![Coach Dashboard](docs/screenshots/coach-dashboard.png)
+
+### 4. Statistics and RAG Evaluation
+Retrieval metrics and coaching statistics.
+
+![Statistics](docs/screenshots/statistics-page.png)
+
+### 5. Machine Learning Evaluation
+KNN model evaluation and performance metrics.
+
+![ML Evaluation](docs/screenshots/evaluation-page.png)
+
